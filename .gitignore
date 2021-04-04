@@ -29,3 +29,13 @@ obj/Debug/net5.0/Shop.assets.cache
 obj/Debug/net5.0/Shop.csprojAssemblyReference.cache
 obj/Debug/net5.0/Shop.csprojAssemblyReference.cache
 obj/Debug/net5.0/Shop.assets.cache
+bin/Debug/net5.0/Microsoft.EntityFrameworkCore.Abstractions.dll
+bin/Debug/net5.0/Microsoft.EntityFrameworkCore.dll
+bin/Debug/net5.0/Microsoft.EntityFrameworkCore.InMemory.dll
+bin/Debug/net5.0/Microsoft.Extensions.DependencyInjection.dll
+bin/Debug/net5.0/System.Diagnostics.DiagnosticSource.dll
+obj/project.assets.json
+obj/project.nuget.cache
+obj/Shop.csproj.nuget.dgspec.json
+obj/Debug/net5.0/Shop.assets.cache
+obj/Debug/net5.0/Shop.csprojAssemblyReference.cache
