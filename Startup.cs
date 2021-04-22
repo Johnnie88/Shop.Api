@@ -26,6 +26,9 @@ namespace Shop
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //Adiciona os cores a aplicação
+            services.AddCors();
+
             ///Comprimir tudo que é application/json    
             services.AddResponseCompression(options =>
             {
@@ -33,7 +36,7 @@ namespace Shop
                 options.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(
                     new[] { "application/json" });
             });
-            services.AddResponseCompression();
+            //services.AddResponseCompression();
             services.AddControllers();
 
             var key = Encoding.ASCII.GetBytes(Settings.Secret); // Gerar chave formato bytes
@@ -62,9 +65,10 @@ namespace Shop
             //AddSingleton(cria uma instancia por aplicação) e AddTransient(Da um datacontext novo)
             services.AddDbContext<DataContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("connectionString")));
             services.AddScoped<DataContext, DataContext>();
+
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Shop", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Shop Api", Version = "v1" });
             });
         }
 
@@ -81,7 +85,19 @@ namespace Shop
 
             app.UseHttpsRedirection();
 
+            app.UseSwagger();
+
+            app.UseSwaggerUI(c =>
+           {
+               c.SwaggerEndpoint("/swagger/v1/swagger.json", "Shop API V1");
+           });
+
             app.UseRouting();
+
+            app.UseCors(x => x
+            .AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader());
 
             app.UseAuthentication();
 
