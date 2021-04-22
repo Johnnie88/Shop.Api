@@ -9,7 +9,7 @@ using Shop.Services;
 
 namespace ShopControllers
 {
-    [Route("users")]
+    [Route("v1/users")]
     public class UserController : Controller
     {
         [HttpPost]

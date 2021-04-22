@@ -12,7 +12,7 @@ using Shop.Models;
 //http://localhost:5000
 //https://meuapp.azurewebsites.bet/
 
-[Route("categories")]
+[Route("v1/categories")]
 public class CategoryController : ControllerBase
 {
     [HttpGet]
@@ -27,6 +27,8 @@ public class CategoryController : ControllerBase
     [HttpGet]
     [Route("{id:int}")]
     [AllowAnonymous]
+    [ResponseCache(VaryByHeader = "User-Agent", Location = ResponseCacheLocation.Any, Duration = 30)]
+    //[ResponseCache(Duration = 0, Location=ResponseCacheLocation.None, NoStore = true)] -> Para config no startup
     public async Task<ActionResult<Category>> GetById(int id, [FromServices] DataContext context)
     {
         var categories = await context.Categories.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id); //AsNoTracking tras menos informações no objeto
@@ -35,7 +37,7 @@ public class CategoryController : ControllerBase
 
     [HttpPost]
     [Route("")]
-    [Authorize(Roles= "employee")]
+    [Authorize(Roles = "employee")]
     public async Task<ActionResult<Category>> Post([FromBody] Category model,
                                                    [FromServices] DataContext context)
     {
@@ -57,7 +59,7 @@ public class CategoryController : ControllerBase
 
     [HttpPut]
     [Route("{id:int}")]
-    [Authorize(Roles= "employee")]
+    [Authorize(Roles = "employee")]
     public async Task<ActionResult<Category>> Put(int id, [FromBody] Category model,
                                                    [FromServices] DataContext context)
     {
@@ -90,7 +92,7 @@ public class CategoryController : ControllerBase
 
     [HttpDelete]
     [Route("{id:int}")]
-    [Authorize(Roles= "employee")]
+    [Authorize(Roles = "employee")]
     public async Task<ActionResult<Category>> Delete(int id,
                                                    [FromServices] DataContext context)
     {
