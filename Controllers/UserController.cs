@@ -14,6 +14,7 @@ namespace ShopControllers
     {
         [HttpPost]
         [Route("")]
+        [AllowAnonymous]
         public async Task<ActionResult<User>> Post([FromBody] User model,
                                                    [FromServices] DataContext context)
         {
@@ -35,6 +36,7 @@ namespace ShopControllers
 
         [HttpPost]
         [Route("login")]
+        [AllowAnonymous]
         public async Task<ActionResult<dynamic>> Authenticate([FromBody] User model,
                                                   [FromServices] DataContext context)
         {
