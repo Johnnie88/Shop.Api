@@ -33,8 +33,9 @@ namespace Shop
                 options.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(
                     new[] { "application/json" });
             });
-
+            services.AddResponseCompression();
             services.AddControllers();
+
             var key = Encoding.ASCII.GetBytes(Settings.Secret); // Gerar chave formato bytes
 
             //Autenticação jwt bearer
