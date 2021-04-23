@@ -23,6 +23,8 @@ namespace ShopControllers
 
             try
             {
+                //força o usuário a ser sempre "funcionário"
+                model.Role = "employee";
                 context.Users.Add(model);
                 await context.SaveChangesAsync();
             }
@@ -31,7 +33,10 @@ namespace ShopControllers
                 BadRequest(new { message = "Não foi possivel criar a categoria" });
             }
 
-            return Ok(model);
+            //Esconde a senha
+            model.Password = "";
+
+            return model;
         }
 
         [HttpPost]
@@ -51,6 +56,10 @@ namespace ShopControllers
             }
 
             var token = TokenService.GenerateToken(user);
+
+            //Esconde a senha
+            model.Password = "";
+
             return new
             {
                 user = user,

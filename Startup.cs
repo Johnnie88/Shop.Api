@@ -59,12 +59,14 @@ namespace Shop
                 };
             });
 
-            //services.AddDbContext<DataContext>(opt => opt.UseInMemoryDatabase("Database"));
             //fecha a conexão de banco apos o uso
+            services.AddDbContext<DataContext>(opt => opt.UseInMemoryDatabase("Database"));
+
             //Dependency Injections: AddScoped(Garante 1 datacontext por requisição usando da memoria), 
             //AddSingleton(cria uma instancia por aplicação) e AddTransient(Da um datacontext novo)
-            services.AddDbContext<DataContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("connectionString")));
-            services.AddScoped<DataContext, DataContext>();
+            //services.AddDbContext<DataContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("connectionString")));
+
+            //services.AddScoped<DataContext, DataContext>();
 
             services.AddSwaggerGen(c =>
             {
@@ -88,9 +90,9 @@ namespace Shop
             app.UseSwagger();
 
             app.UseSwaggerUI(c =>
-           {
-               c.SwaggerEndpoint("/swagger/v1/swagger.json", "Shop API V1");
-           });
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Shop API V1");
+            });
 
             app.UseRouting();
 
